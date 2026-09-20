@@ -5,12 +5,12 @@
 Automated Certificate Management Environment                   C. P. Liu
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Ounsworth
-Expires: 7 March 2027                       Cryptic Forest Software, Ltd
+Expires: 24 March 2027                      Cryptic Forest Software, Ltd
                                                            M. Richardson
                                             Sandelman Software Works Inc
                                                               G. Mallaya
                                                            AppViewX, Inc
-                                                        3 September 2026
+                                                       20 September 2026
 
 
  Automated Certificate Management Environment (ACME) Remote Attestation
@@ -61,7 +61,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 March 2027.
+   This Internet-Draft will expire on 24 March 2027.
 
 Copyright Notice
 
@@ -280,8 +280,40 @@ Table of Contents
 
 1.2.  Related work
 
-   TODO: need a compare & contrast with draft-ietf-acme-device-attest.
-   @Ganesh, you're an author on both, could you write this text?
+   ACME-RA and ACME-DA specifications address device and posture
+   trustworthiness within ACME through different mechanisms and scopes.
+   The Device Attestation Extension defines two new identifier types,
+   permanent-identifier and hardware-module, and validates them through
+   a single device-attest-01 challenge answered with a WebAuthn
+   attestation object; the Server performs verification directly against
+   the attestation statement, corresponding to a single-hop Background
+   Check pattern.  These identifiers may be carried into the
+   certificate's Subject Alternative Name, subject to strict octet-
+   matching rules, or omitted under a defined privacy-preserving mode,
+   and the mechanism assumes the requesting client and the attested
+   device or key are the same entity.
+
+   The ACME RATS extension takes a broader approach.  It introduces a
+   remote-attestation identifier whose value functions as a property
+   hint, such as "hsm" or "measured-boot", rather than an actual
+   identifier, and defines a remote-attest-01 challenge answered with a
+   RATS Conceptual Message Wrapper capable of carrying evidence,
+   endorsements, or an attestation result in any RATS-supported format.
+   It offers support for both the Passport and Background Check models
+   defined by the RATS architecture, including an optional third-party
+   Verifier role and payload encryption for sensitive evidence.
+   Attestation under this specification is explicitly supplemental
+   because it does not populate certificate identifiers, and the client
+   must separately satisfy a conventional identifier challenge such as
+   DNS-01 or HTTP-01.  It also accounts for topologies in which the
+   Client and the attested application host are distinct.
+
+   In summary, the Device Attestation Extension provides a narrowly
+   scoped, identity-binding mechanism built on WebAuthn-wrapped vendor
+   attestation formats, while ACME RATS provides a more general, RATS-
+   ecosystem-native framework for conveying supplemental trust and
+   posture information, decoupled from certificate identifiers.  The two
+   mechanisms are intended to be complementary rather than competing.
 
    [CSRATT] define a mechanism for carrying arbitrary remote attestation
    data within a certificate signing request (CSR) object (PKCS#10 or
@@ -312,7 +344,7 @@ Table of Contents
    A new identifier type to indicate client support or server request
    for remote attestation.  This is a "dummy" identifier in that the
    value does not contain an actual identifier, but instead a property
-   that is the be remotely attested.  The value MAY be left empty, or
+   that is to be remotely attested.  The value MAY be left empty, or
    contain a property hint as per Section 4.
 
    type (required, string):  The string "remote-attestation".
@@ -574,13 +606,13 @@ Table of Contents
 
   "attestClaimsHint": ["hwmodel", "swversion", "submods", "manifests",],
 
-   meaning that it is interesting in the type of device and what
-   software is running on it.  This field is called a "hint" because the
-   ACME Client might not be capable of obtaining remote attestation
-   evidence, endorsements, or attestation results that directly map to
-   these claims.  Servers SHOULD NOT we written to expect exactly these
-   claims back.  This mechanism does not remove the need for vendors to
-   perform interop testing against CAs.
+   meaning that it is interested in the type of device and what software
+   is running on it.  This field is called a "hint" because the ACME
+   Client might not be capable of obtaining remote attestation evidence,
+   endorsements, or attestation results that directly map to these
+   claims.  Servers SHOULD NOT be written to expect exactly these claims
+   back.  This mechanism does not remove the need for vendors to perform
+   interop testing against CAs.
 
    EDNOTE: is the attestClaimsHint actually adding anything useful on
    top of the identifier values of "measured-boot", "hsm", "passkey",
@@ -686,7 +718,7 @@ yePAuQj5xXAnz87/7ItOkDTk5Y4syoW1RL2zPBzYEHBQ06JyUvZDYPYjeTqwlPszb9Grbxw0UAEFx5Dx
    performing interoperability testing between a given attesting device
    and a given CA.  Similarly, an ACME attestation hint may not map one-
    to-one with attestation functionality exposed by the underlying
-   attesting device, so ACME clients might need to act as intermediaries
+   attesting device, so Clients might need to act as intermediaries
    mapping ACME hints to vendor-specific functionality on a per-
    hardware-vendor basis.
 
@@ -722,33 +754,33 @@ yePAuQj5xXAnz87/7ItOkDTk5Y4syoW1RL2zPBzYEHBQ06JyUvZDYPYjeTqwlPszb9Grbxw0UAEFx5Dx
    With that being said, a more specific use case is as follows: an
    enterprise employee visits multiple campuses, and connects to each
    one's WiFi.  For example, an inspector visits many (tens of) power
-   substations a day, connects to the local WiFi, download log data,
-   proceed to the next and repeat the process.
+   substations a day, connects to the local WiFi, downloads log data,
+   proceeds to the next and repeat the process.
 
    Current access solution include: 1.  The inspector remembers the
-   password for each WiFi, and conduct the 802.1X EAP password-based
+   password for each WiFi, and conducts the 802.1X EAP password-based
    (PAP/CHAP/MS-CHAPv2) authentication. or 2. an enterprise MDM receives
-   the passwords and usernames over application layer connection from
-   the MDM server, and enter them on user's behalf.  While Solution 1
-   obviously suffer from management burdens induced by massive number of
-   password pairs, and password rotation requirements, the drawback of
-   Solution 2 is more obsecure, which include:
+   the passwords and usernames over an application layer connection from
+   the MDM server, and enters them on user's behalf.  While Solution 1
+   obviously suffers from management burdens induced by the massive
+   number of password pairs, and password rotation requirements, the
+   drawback of Solution 2 is more obsecure, which include:
 
    a.  Bring Your Own Device (BYOD) situation and MDM is not available.
    b.  Password could risk leakage due to APP compromise, or during
-   Internet transmission.  Anyone with leaked password can access,
+   Internet transmission.  Anyone with the leaked password can access,
    without binding of trusted/usual devices. c.  The RADIUS Client/
    Access Point/Switch is not aware of the identity of the accessing
    device, therefore cannot enforce more fine-grained access policies.
 
    An ideal user story is: 1.  When the inspector is at base (or
-   whenever the Remote Attestation-based check is available), he get his
-   device inspected and redeem a certificate using ACME-RA. 2.  When at
-   substation, the inspector authenticate to the WiFi using EAP-TLS,
-   where all the substations have the company root CA installed. 2*.
-   Alternatively, the Step 2 can use EAP-repeater mode, where the RADIUS
-   Client redirects the request back to the RADIUS Server for more
-   advanced checks.
+   whenever the Remote Attestation-based check is available), he gets
+   his device inspected and redeems a certificate using ACME-RA. 2.
+   When at the substation, the inspector authenticate to the WiFi using
+   EAP-TLS, where all the substations have the company root CA
+   installed. 2*. Alternatively, the Step 2 can use EAP-repeater mode,
+   where the RADIUS Client redirects the request back to the RADIUS
+   Server for more advanced checks.
 
 5.3.  BYOD devices
 
@@ -783,9 +815,9 @@ yePAuQj5xXAnz87/7ItOkDTk5Y4syoW1RL2zPBzYEHBQ06JyUvZDYPYjeTqwlPszb9Grbxw0UAEFx5Dx
 
 6.  Security Considerations
 
-   The attestation-result-01 challenge (the Passport Model) is the
-   mandatory to implement.  The encrypted-evidence-01 challenge (the
-   background-check model) is optional.
+   The attestation-result-01 challenge (the Passport Model) is mandatory
+   to implement.  The encrypted-evidence-01 challenge (the background-
+   check model) is optional.
 
    In all cases the Server has to be able to verify Attestation Results
    from the Verifier.  To do that it requires appropriate trust anchors.
@@ -846,7 +878,7 @@ yePAuQj5xXAnz87/7ItOkDTk5Y4syoW1RL2zPBzYEHBQ06JyUvZDYPYjeTqwlPszb9Grbxw0UAEFx5Dx
    | "hsm"            | Attestation that the private key               |
    |                  | associated with this certificate request       |
    |                  | is stored in cryptographic hardware such       |
-   |                  | as a TPM or PKCS#11 HSM.  In the case of       |
+   |                  | as a TPM or PKIX HSM.  In the case of          |
    |                  | PKCS#11 HSMs, the attestation SHOULD           |
    |                  | contain the PKCs#11 properties of the          |
    |                  | private key storage, as well as an             |
@@ -878,13 +910,13 @@ yePAuQj5xXAnz87/7ItOkDTk5Y4syoW1RL2zPBzYEHBQ06JyUvZDYPYjeTqwlPszb9Grbxw0UAEFx5Dx
    running.  The "hsm" property is an exception to this because this
    wants attestation from the cryptographic module instead.
 
-   In cases where the ACME client is running on a different host from
-   the application, remote attestation always refers to the application
-   host.  In other words, a centralized ACME client MUST fulfill the
-   ACME-RA challenge by getting the application server that will
-   ultimately use the certificate to query its local environment for
-   remote attestation, and the ACME client MUST NOT present remote
-   attestation from the host where it is running.
+   In cases where the Client is running on a different host from the
+   application, remote attestation always refers to the application
+   host.  In other words, a centralized Client MUST fulfill the ACME-RA
+   challenge by getting the application server that will ultimately use
+   the certificate to query its local environment for remote
+   attestation, and the Client MUST NOT present remote attestation from
+   the host where it is running.
 
    EDNOTE: I am somewhat surprised that a registry like this does not
    already exist associated with CMW.
