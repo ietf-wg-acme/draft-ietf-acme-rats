@@ -9,6 +9,7 @@
 <meta content="Mike Ounsworth" name="author">
 <meta content="Michael Richardson" name="author">
 <meta content="Ganesh Mallaya" name="author">
+<meta content="Sven Rajala" name="author">
 <meta content="
        This document describes an approach where an ACME Server can challenge an ACME Client to provide Evidence, Endorsements, or Attestation Result according to the Remote ATtestation procedureS (RATS) framework in any format supported by the Conceptual Message Wrapper (CMW). 
        The ACME Server can optionally challenge the Client for specific claims that it wishes attestation for. 
@@ -20,18 +21,18 @@
 <meta content="draft-ietf-acme-rats-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.34.1
-    Python 3.14.7
-    ConfigArgParse 1.7.7
+    Python 3.14.8
+    ConfigArgParse 1.8.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.10
+    platformdirs 4.13.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.4
+    wcwidth 0.9.2
 -->
 <link href="draft-ietf-acme-rats.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1047,11 +1048,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">acme-rats</td>
-<td class="right">September 2026</td>
+<td class="right">October 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Liu, et al.</td>
-<td class="center">Expires 24 March 2027</td>
+<td class="center">Expires 1 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-acme-rats-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-20" class="published">20 September 2026</time>
+<time datetime="2026-10-28" class="published">28 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-03-24">24 March 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-01">1 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1087,6 +1088,10 @@ svg {
 <div class="author">
       <div class="author-name">G. Mallaya</div>
 <div class="org">AppViewX, Inc</div>
+</div>
+<div class="author">
+      <div class="author-name">S. Rajala</div>
+<div class="org">Keyfactor</div>
 </div>
 </dd>
 </dl>
@@ -1132,7 +1137,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 March 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 1 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1822,7 +1827,7 @@ It does not result in any specific contents to the certificate Subject or Subjec
 <dl class="references">
 <dt id="CSRATT">[CSRATT]</dt>
         <dd>
-<span class="refAuthor">Ounsworth, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Wiseman, M.</span>, and <span class="refAuthor">N. Smith</span>, <span class="refTitle">"Use of Remote Attestation with Certification Signing Requests"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-csr-attestation-29</span>, <time datetime="2026-09-02" class="refDate">2 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-29">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-29</a>&gt;</span>. </dd>
+<span class="refAuthor">Ounsworth, M.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Wiseman, M.</span>, and <span class="refAuthor">N. Smith</span>, <span class="refTitle">"Use of Remote Attestation with Certification Signing Requests"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-csr-attestation-32</span>, <time datetime="2026-10-22" class="refDate">22 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-32">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-csr-attestation-32</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RATSPA">[RATSPA]</dt>
         <dd>
@@ -1858,7 +1863,7 @@ It does not result in any specific contents to the certificate Subject or Subjec
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">TODO acknowledge.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">We thank the participants on the ACME Working Group mailing list for their insightful feedback and comments. In particular, the authors extend sincere appreciation to Mike Agrenius Kushner for their reviews and suggestions, which greatly improved the quality of this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
@@ -1895,7 +1900,15 @@ It does not result in any specific contents to the certificate Subject or Subjec
 <div dir="auto" class="left"><span class="org">AppViewX, Inc</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:ganesh.mallaya@appviewx.om" class="email">ganesh.mallaya@appviewx.om</a>
+<a href="mailto:ganesh.mallaya@appviewx.com" class="email">ganesh.mallaya@appviewx.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Sven Rajala</span></div>
+<div dir="auto" class="left"><span class="org">Keyfactor</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:sven.rajala@keyfactor.com" class="email">sven.rajala@keyfactor.com</a>
 </div>
 </address>
 </section>

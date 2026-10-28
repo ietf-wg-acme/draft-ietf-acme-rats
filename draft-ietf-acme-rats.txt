@@ -5,12 +5,14 @@
 Automated Certificate Management Environment                   C. P. Liu
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Ounsworth
-Expires: 24 March 2027                      Cryptic Forest Software, Ltd
+Expires: 1 May 2027                         Cryptic Forest Software, Ltd
                                                            M. Richardson
                                             Sandelman Software Works Inc
                                                               G. Mallaya
                                                            AppViewX, Inc
-                                                       20 September 2026
+                                                               S. Rajala
+                                                               Keyfactor
+                                                         28 October 2026
 
 
  Automated Certificate Management Environment (ACME) Remote Attestation
@@ -61,7 +63,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 March 2027.
+   This Internet-Draft will expire on 1 May 2027.
 
 Copyright Notice
 
@@ -971,9 +973,9 @@ yePAuQj5xXAnz87/7ItOkDTk5Y4syoW1RL2zPBzYEHBQ06JyUvZDYPYjeTqwlPszb9Grbxw0UAEFx5Dx
    [CSRATT]   Ounsworth, M., Tschofenig, H., Birkholz, H., Wiseman, M.,
               and N. Smith, "Use of Remote Attestation with
               Certification Signing Requests", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-csr-attestation-29, 2
-              September 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-lamps-csr-attestation-29>.
+              Internet-Draft, draft-ietf-lamps-csr-attestation-32, 22
+              October 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-lamps-csr-attestation-32>.
 
    [RATSPA]   Moriarty, K., Wiseman, M., Stein, A. J., and C. Nelogal,
               "Remote Posture Assessment for Systems, Containers, and
@@ -1016,7 +1018,11 @@ yePAuQj5xXAnz87/7ItOkDTk5Y4syoW1RL2zPBzYEHBQ06JyUvZDYPYjeTqwlPszb9Grbxw0UAEFx5Dx
 
 Acknowledgments
 
-   TODO acknowledge.
+   We thank the participants on the ACME Working Group mailing list for
+   their insightful feedback and comments.  In particular, the authors
+   extend sincere appreciation to Mike Agrenius Kushner for their
+   reviews and suggestions, which greatly improved the quality of this
+   document.
 
 Authors' Addresses
 
@@ -1037,4 +1043,9 @@ Authors' Addresses
 
    Ganesh Mallaya
    AppViewX, Inc
-   Email: ganesh.mallaya@appviewx.om
+   Email: ganesh.mallaya@appviewx.com
+
+
+   Sven Rajala
+   Keyfactor
+   Email: sven.rajala@keyfactor.com
