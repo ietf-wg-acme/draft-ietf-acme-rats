@@ -172,7 +172,7 @@ EDNOTE: Is there any reason for the client to include "remote-attestation" ident
 
 A `remote-attest-01` challenge type asks the Client to provide Evidence appropriate for making a  trustworthiness decision.
 The Client SHOULD use the provided
-`freshness_nonce` as an attestation freshness nonce, if the Client's underlying attestation technology supports freshness nonces.
+`freshnessNonce` as an attestation freshness nonce, if the Client's underlying attestation technology supports freshness nonces.
 
 The Server MAY include a `attestClaimsHint` containing a list of claims or specific properties that it would like to see attested.
 
@@ -189,7 +189,7 @@ The `remote-attest-01` Challenge Object is:
 
 The basic fields `type` (which MUST be "remote-attest-01"), `url`, `status`, `validated` and `error` are preserved from {{Section 8 of RFC8555}} un-modified. The following new fields are added:
 
-freshness_nonce (required, string):
+freshnessNonce (required, string):
 : A randomly created nonce provided by the server which MUST be included in the Attestation Results to provide freshness.
 
 EDNOTE TODO: we should decide whether this nonce MAY / SHOULD / SHOULD NOT / MUST NOT be the same as the ACME nonce or the ACME Challenge URL.
@@ -300,7 +300,7 @@ The `C1uq5Dr+x8GSEJTSKW5B` authorization corresponds to the remote-attestation "
 Here is an example `remote-attest-01` challenge:
 
 ~~~~~~~~~~
-   GET https://example.com/acme/authz/C1uq5Dr+x8GSEJTSKW5B HTTP/1.1
+   POST https://example.com/acme/authz/C1uq5Dr+x8GSEJTSKW5B HTTP/1.1
    ..
 
    HTTP/1.1 200 OK
@@ -319,7 +319,7 @@ Here is an example `remote-attest-01` challenge:
          "type": "remote-attest-01",
          "url": "https://example.com/acme/chall/prV_8235AD9d",
          "status": "pending",
-         "freshness_nonce": "yoW1RL2zPBzYEHBQ06Jy",
+         "freshnessNonce": "yoW1RL2zPBzYEHBQ06Jy",
          "attestClaimsHint": ["hwmodel", "swversion", "submods", "manifests",],
          "verifierEncryptionCredential": "https://example.com/acme/ra-encr-keys/_fyg_W85yTul8zDPygcIgKmj-xA",
        }
