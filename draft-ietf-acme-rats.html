@@ -1376,7 +1376,7 @@ The <code>value</code> MAY be left empty, or contain a property hint as per <a h
         </h3>
 <p id="section-2.2-1">A <code>remote-attest-01</code> challenge type asks the Client to provide Evidence appropriate for making a  trustworthiness decision.
 The Client SHOULD use the provided
-<code>freshness_nonce</code> as an attestation freshness nonce, if the Client's underlying attestation technology supports freshness nonces.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<code>freshnessNonce</code> as an attestation freshness nonce, if the Client's underlying attestation technology supports freshness nonces.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <p id="section-2.2-2">The Server MAY include a <code>attestClaimsHint</code> containing a list of claims or specific properties that it would like to see attested.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 <p id="section-2.2-3">The Client MUST complete the challenge by returning a CMW <span>[<a href="#I-D.ietf-rats-msg-wrap" class="cite xref">I-D.ietf-rats-msg-wrap</a>]</span> which MAY contain remote attestation data in any defined CMW format, including: EAT <span>[<a href="#RFC9711" class="cite xref">RFC9711</a>]</span>, WebAuthn (cite), TPM attest_certify (?cite), PKIXKeyAttesation <span>[<a href="#RATSKA" class="cite xref">RATSKA</a>]</span>.
 It may contain other RATS conceptual message types such as evidence, endorsement, or attestation result as appropriate for the mode.
@@ -1390,7 +1390,7 @@ Since this specification allows wide flexibility on the contents of the remote a
 <p id="section-2.2.1-1">The <code>remote-attest-01</code> Challenge Object is:<a href="#section-2.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.2.1-2">The basic fields <code>type</code> (which MUST be "remote-attest-01"), <code>url</code>, <code>status</code>, <code>validated</code> and <code>error</code> are preserved from <span><a href="https://rfc-editor.org/rfc/rfc8555#section-8" class="relref">Section 8</a> of [<a href="#RFC8555" class="cite xref">RFC8555</a>]</span> un-modified. The following new fields are added:<a href="#section-2.2.1-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-2.2.1-3">
-            <dt id="section-2.2.1-3.1">freshness_nonce (required, string):</dt>
+            <dt id="section-2.2.1-3.1">freshnessNonce (required, string):</dt>
             <dd style="margin-left: 1.5em" id="section-2.2.1-3.2">
               <p id="section-2.2.1-3.2.1">A randomly created nonce provided by the server which MUST be included in the Attestation Results to provide freshness.<a href="#section-2.2.1-3.2.1" class="pilcrow">¶</a></p>
 </dd>
@@ -1516,7 +1516,7 @@ The <code>C1uq5Dr+x8GSEJTSKW5B</code> authorization corresponds to the remote-at
 <p id="section-3.3-3">Here is an example <code>remote-attest-01</code> challenge:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.3-4">
 <pre>
-   GET https://example.com/acme/authz/C1uq5Dr+x8GSEJTSKW5B HTTP/1.1
+   POST https://example.com/acme/authz/C1uq5Dr+x8GSEJTSKW5B HTTP/1.1
    ..
 
    HTTP/1.1 200 OK
@@ -1535,7 +1535,7 @@ The <code>C1uq5Dr+x8GSEJTSKW5B</code> authorization corresponds to the remote-at
          "type": "remote-attest-01",
          "url": "https://example.com/acme/chall/prV_8235AD9d",
          "status": "pending",
-         "freshness_nonce": "yoW1RL2zPBzYEHBQ06Jy",
+         "freshnessNonce": "yoW1RL2zPBzYEHBQ06Jy",
          "attestClaimsHint": ["hwmodel", "swversion", "submods", "manifests",],
          "verifierEncryptionCredential": "https://example.com/acme/ra-encr-keys/_fyg_W85yTul8zDPygcIgKmj-xA",
        }
