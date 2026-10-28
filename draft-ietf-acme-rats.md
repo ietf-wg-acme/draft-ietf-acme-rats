@@ -37,7 +37,7 @@ author:
     fullname: Ganesh Mallaya
     organization: AppViewX, Inc
     email: ganesh.mallaya@appviewx.com
-  -
+ -
     fullname: Sven Rajala
     organization: Keyfactor
     email: sven.rajala@keyfactor.com
