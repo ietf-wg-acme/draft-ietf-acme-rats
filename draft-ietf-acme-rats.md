@@ -36,7 +36,11 @@ author:
  -
     fullname: Ganesh Mallaya
     organization: AppViewX, Inc
-    email: ganesh.mallaya@appviewx.om
+    email: ganesh.mallaya@appviewx.com
+ -
+    fullname: Sven Rajala
+    organization: Keyfactor
+    email: sven.rajala@keyfactor.com
 normative:
   RFC8555:
   RFC9334:
@@ -510,4 +514,4 @@ EDNOTE: I am somewhat surprised that a registry like this does not already exist
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+We thank the participants on the ACME Working Group mailing list for their insightful feedback and comments. In particular, the authors extend sincere appreciation to Mike Agrenius Kushner for their reviews and suggestions, which greatly improved the quality of this document.
